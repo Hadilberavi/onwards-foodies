@@ -131,7 +131,7 @@ export function saveStoredMeal({
     title,
     summary,
     // The detail view renders this through dangerouslySetInnerHTML, so it must
-    // be sanitized on write — exactly where the real app sanitizes it.
+    // be sanitized on write - exactly where the real app sanitizes it.
     instructions: xss(instructions),
     creator,
     creator_email,

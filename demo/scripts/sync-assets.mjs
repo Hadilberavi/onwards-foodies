@@ -21,9 +21,9 @@ const EXCLUDE = new Set([".DS_Store", "undefined.png"]);
 const filter = (src) => !EXCLUDE.has(src.split("/").pop());
 
 const jobs = [
-  // Slideshow photos, logo and community icons — imported via `@/assets/...`.
+  // Slideshow photos, logo and community icons - imported via `@/assets/...`.
   { from: resolve(appRoot, "assets"), to: resolve(demoRoot, "assets") },
-  // Meal photos backing the generated seed — imported via `@/assets/meals/...`.
+  // Meal photos backing the generated seed - imported via `@/assets/meals/...`.
   {
     from: resolve(appRoot, "public/images"),
     to: resolve(demoRoot, "assets/meals"),

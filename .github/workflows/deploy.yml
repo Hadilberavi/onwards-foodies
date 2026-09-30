@@ -1,6 +1,6 @@
 name: Deploy demo to GitHub Pages
 
-# Publishes demo/ — the static export of this app. The app at the repository
+# Publishes demo/ - the static export of this app. The app at the repository
 # root uses Server Actions and a writable SQLite database, so it cannot be
 # statically exported and is not what gets deployed here.
 
@@ -16,7 +16,7 @@ permissions:
 
 concurrency:
   group: pages
-  # Never cancel a running deploy — that can leave the site half-published.
+  # Never cancel a running deploy - that can leave the site half-published.
   cancel-in-progress: false
 
 jobs:

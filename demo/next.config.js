@@ -8,7 +8,7 @@ const nextConfig = {
   output: "export",
   basePath: BASE_PATH,
   trailingSlash: true,
-  // Required with output:"export" — there is no image optimization server.
+  // Required with output:"export" - there is no image optimization server.
   images: { unoptimized: true },
   // Exposed so client code can strip the prefix when parsing location paths.
   env: { NEXT_PUBLIC_BASE_PATH: BASE_PATH },

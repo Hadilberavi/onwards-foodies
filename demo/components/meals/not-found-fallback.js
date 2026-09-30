@@ -11,7 +11,7 @@ import { getStoredMeal } from "@/lib/demo-store";
 //
 // generateStaticParams only prerenders the seeded slugs. A meal the visitor
 // added lives in localStorage, so /meals/<their-slug>/ has no file and GitHub
-// Pages answers with 404.html — which Next builds from app/not-found.js,
+// Pages answers with 404.html - which Next builds from app/not-found.js,
 // complete with the client runtime. This component runs there, recognises the
 // URL, and renders the meal instead of the error.
 //

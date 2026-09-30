@@ -55,7 +55,7 @@ export default function ShareMealForm() {
     <form className={classes.form} onSubmit={handleSubmit}>
       <p className="demo-note">
         This is the static demo, so there is no server to post to. Your meal is
-        saved in this browser only — nobody else will see it, and clearing your
+        saved in this browser only. Nobody else will see it, and clearing your
         site data removes it.
       </p>
       <div className={classes.row}>

@@ -1,0 +1,18 @@
+{
+  "name": "foodies-demo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "predev": "node scripts/sync-assets.mjs",
+    "dev": "next dev",
+    "prebuild": "node scripts/sync-assets.mjs",
+    "build": "next build"
+  },
+  "dependencies": {
+    "next": "14.0.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "slugify": "^1.6.6",
+    "xss": "^1.0.15"
+  }
+}

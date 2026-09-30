@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "demo:seed": "node scripts/export-demo-seed.mjs"
   },
   "dependencies": {
     "better-sqlite3": "^12.6.2",

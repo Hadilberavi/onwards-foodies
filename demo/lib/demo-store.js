@@ -88,19 +88,45 @@ export async function fileToDataUrl(file) {
 
   const image = new Image();
   image.src = readAsDataUrl;
-  try {
-    // decode() resolves only once the bitmap is usable; drawImage on a
-    // half-loaded image silently produces a blank canvas.
-    await image.decode();
-  } catch {
+
+  // Wait for the load event rather than decode(). decode() is tied to the
+  // rendering pipeline, so on a backgrounded or non-compositing tab it can
+  // stay pending forever even once the image is fully loaded, which would
+  // strand the form on "Saving..." with no error. The load event has no such
+  // dependency, and drawImage decodes on demand anyway.
+  await new Promise((resolve, reject) => {
+    if (image.complete && image.naturalWidth > 0) {
+      resolve();
+      return;
+    }
+    // Last resort, so a stalled load can never hang the form indefinitely.
+    const timer = setTimeout(
+      () => reject(new Error("That image took too long to load. Try another.")),
+      15000,
+    );
+    const done = (fn, err) => () => {
+      clearTimeout(timer);
+      fn(err);
+    };
+    image.onload = done(resolve);
     // Some platforms let a HEIC through the accept filter.
+    image.onerror = done(
+      reject,
+      new Error("That image format could not be read. Try a JPEG or PNG."),
+    );
+  });
+
+  if (!image.naturalWidth) {
     throw new Error("That image format could not be read. Try a JPEG or PNG.");
   }
 
-  const scale = Math.min(1, MAX_EDGE / Math.max(image.width, image.height));
+  // naturalWidth/Height are the intrinsic pixels; width/height can differ for
+  // an element that was never laid out.
+  const { naturalWidth: srcW, naturalHeight: srcH } = image;
+  const scale = Math.min(1, MAX_EDGE / Math.max(srcW, srcH));
   const canvas = document.createElement("canvas");
-  canvas.width = Math.max(1, Math.round(image.width * scale));
-  canvas.height = Math.max(1, Math.round(image.height * scale));
+  canvas.width = Math.max(1, Math.round(srcW * scale));
+  canvas.height = Math.max(1, Math.round(srcH * scale));
 
   const ctx = canvas.getContext("2d");
   // JPEG has no alpha channel; without this, transparent PNGs go black.
